@@ -17,8 +17,8 @@ def carregar_arquivos(pasta):
     for arquivo in arquivos:
         print(f"Carregando {arquivo.name}")
         # Aqui você pode colocar o que fazer com o arquivo, por exemplo, abrir com pandas
-        # df = pd.read_csv(arquivo)
-        # print(df.head())  # Exemplo de visualização dos dados
+        df = pd.read_csv(arquivo)
+        print(df.head())  # Exemplo de visualização dos dados
     if not arquivos:
         print("Nenhum arquivo encontrado.")
 
