@@ -52,6 +52,7 @@ df_geral['sku'] = df_geral['sku'].str.upper()
 df_geral['data'] = pd.to_datetime(df_geral['data'], format='%d/%m/%Y %H:%M:%S', errors='coerce')
 
 
+
 # Supondo que df_geral já esteja definido e contém os dados apropriados
 query = """
 SELECT 
@@ -63,6 +64,7 @@ SELECT
 FROM 
     df_geral t1
 JOIN (
+    -- Subquery para selecionar a última entrega de cada SKU
     SELECT 
         UPPER(sku) AS sku,
         MAX(data) AS max_data
@@ -79,7 +81,21 @@ ON
     AND t1.data = t2.max_data
 WHERE 
     t1.movimento = 'ENTREGA'
-    AND t1.atlas = 'INICIALIZADO';
+    AND t1.atlas = 'INICIALIZADO'
+    -- Verificar se o SKU não foi devolvido após a entrega
+    AND NOT EXISTS (
+        SELECT 1
+        FROM df_geral t3
+        WHERE 
+            UPPER(t3.sku) = UPPER(t1.sku) 
+            AND t3.tecnico = t1.tecnico
+            AND t3.movimento = 'DEVOLUCAO'
+            AND t3.data > t1.data
+    )
+GROUP BY 
+    t1.sku, t1.tecnico, t1.descricao, t1.modelo, t1.data;
+
+
 """
 
 # Executando a query com pandasql
@@ -145,6 +161,3 @@ if descricao_filter != "Todos":
 st.dataframe(df_filtrado_miscelanea, hide_index=True)
 
 
-# Verificar se existem duplicatas no DataFrame
-duplicados = df_geral[df_geral.duplicated(subset=['sku', 'data'], keep=False)]
-print(duplicados)
