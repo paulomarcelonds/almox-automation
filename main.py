@@ -4,7 +4,7 @@ from pathlib import Path
 import pandasql as psql
 
 # Variável para o diretório dos arquivos CSV
-drive_imperium = Path(r'H:\Meu Drive\automation-digitec\fortaleza\atendimento')
+drive_imperium = Path(r'G:\Meu Drive\automation-digitec\fortaleza\atendimento')
 
 # Carregar todos os arquivos CSV da pasta e remover índices
 def carregar_arquivos_csv(diretorio):
