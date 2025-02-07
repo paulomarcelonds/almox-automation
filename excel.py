@@ -74,4 +74,4 @@ GROUP BY
 # Executando a query com pandasql
 df_ultima_posicao = psql.sqldf(query, locals())
 
-df_ultima_posicao.to_excel("ultima-posicao-06122024.xlsx", index=False)
+df_ultima_posicao.to_excel("ultima-posicao-07-02-25.xlsx", index=False)
