@@ -43,4 +43,4 @@ df_ultima_posicao = df_ultima_posicao[~df_ultima_posicao.apply(lambda row: (
 df_ultima_posicao = df_ultima_posicao[['sku', 'tecnico', 'descricao', 'modelo', 'data']]
 
 # Salvar o resultado em um arquivo Excel
-df_ultima_posicao.to_excel("ultima-posicao-28-02-25.xlsx", index=False)
+df_ultima_posicao.to_excel("ultima-posicao-12-03-25.xlsx", index=False)
